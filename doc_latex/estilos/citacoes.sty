@@ -1,0 +1,61 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{estilos/citacoes}
+
+%---------------------------------------------------------%
+% Citações
+%   Citação indireta:
+        % (Cabra, 2010) [...]
+        \renewcommand{\cite}[1]{(\citeauthor{#1}, \citeyear{#1})}
+        % Cabra (2010)
+        \renewcommand{\citealp}[2][]{\citeauthor{#2} (\citeyear{#2})}
+        % [k]
+        \newcommand{\citenbr}[1]{[\citenum{#1}]}
+
+
+%   Citação Direta:
+        % Quando a opinião do autor (a) é apresentada exatamente da mesma forma
+        % em que foi escrita.
+
+        % Menos de 3 linhas: (Fairclough, 2001, p. 51)
+        % Mais de 3 linhas: Recuo 4 cm, fonte 10 pt, espaçamento simples, com
+        % (FAIRCLOUGH, 2001, p. 51) no final.
+        \newcommand{\directcitation}[1]{\vspace{1.5em}
+                                        \hfill
+                                        \begin{minipage}{12cm}
+                                        \footnotesize #1
+                                        \vspace{1.5em}
+                                        \end{minipage}
+                                        }
+%---------------------------------------------------------%
+% Configuração de Bibliografia
+% Nota: @ é letra em arquivos .sty, sem necessidade de \makeatletter
+\renewcommand{\bibsection}{\centering\textbf{REFERÊNCIAS}}
+\renewcommand{\bibpreamble}{\vskip 1.5em}
+\renewcommand\@biblabel[1]{[#1]\hspace{0.6em}}
+
+\renewenvironment{thebibliography}[1]
+    {\bibsection
+    \bibpreamble
+    \list{}
+        {\setlength{\labelwidth}{5em}
+        \setlength{\labelsep}{0pt}
+        \setlength{\leftmargin}{0pt}
+        \setlength{\itemindent}{0pt}
+        \setlength{\listparindent}{0.6em}
+        \setlength{\parsep}{0pt}
+        \setlength{\itemsep}{\baselineskip}
+        \usecounter{enumiv}
+        \let\p@enumiv\@empt
+        \renewcommand{\theenumiv}{\arabic{enumiv}}
+        \def\makelabel##1{##1}}
+    \justifying\sloppy}
+    {\endlist}
+%---------------------------------------------------------%
+% Configuração de links:
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=blue, % < ---- Alterar aqui a cor dos links de sites
+    % A norma não deixa claro a cor do link, mas os exemplos são dados na cor preta.
+    citecolor=black}
+\urlstyle{same}

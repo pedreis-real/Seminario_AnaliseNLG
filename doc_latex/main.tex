@@ -1,0 +1,310 @@
+%
+%   oooo   ooo   ooooooooo   oo.    .oOb.   .oOb.      .ooooooo. 
+%   `88'   `8'   `88'    "  "  YP"d"   8b d"  8b     dP'      "º   
+%    88     8     88oooo8      88     88Y    88     88       oooo
+%    88.   .8     88          88     88     88.  .  `88.      88
+%     'YbodP'    o88o        88     88     88ooY"      "Y8bodP*"  
+%                            
+%                           %%%%%%%%%%%%%%%%%%%%   
+%                           %%%%%%%%%%%%%%%%%%%%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     ARQUIVO DE CONFIGURAÇÃO                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%         Código produzido por Gabriel Figueiredo @ UFMG       %
+%           Versão 7.0 | Última atualização: 09/04/2026        %
+%            Se for modificar, dê os devidos créditos!         %
+%                                                              %
+%                       Disponível no link                     %
+%      https://www.overleaf.com/read/rpbktnvskjhx#7100f6       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%      ALTERAÇÕES DE CONTEÚDO SÃO FEITAS NOS ARQUIVOS .TEX     %
+%      ALTERAÇÕES NA ESTRUTURA DO DOCUMENTO SÃO FEITAS AQUI    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                         *** AVISO ***                        %
+% PARA ESCREVER EM INGLÊS, ALTERAR:                            %
+% Arquivo CUSTOM.BST nas linhas 227, 274 e 276                 %
+% Arquivo MAIN.TEX nas linhas 44, 152, 161, 233, 462 e 472     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                              %
+% EM CONFORMIDADE COM NORMAS:                                  %
+%   NBR 6023:2018  - Referências bibliográficas                %
+%   NBR 6024:2012  - Numeração de seções                       %
+%   NBR 6027:2012  - Sumários                                  %
+%   NBR 6028:2021  - Resumos                                   %
+%   NBR 10520:2023 - Citações                                  %
+%   NBR 14724:2011 - Princípios gerais de trabalhos acadêmicos %
+%                                                              %
+%%%%%%%%%%%%%%%%%%%%%%%%%% CHANGELOG %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 7.0 - main.tex   - Comandos e configurações ABNT extraídos
+%                    para pacotes .sty na pasta estilos/
+% matematica.sty   - Adição de estilos matemáticos para tamanho
+%                    pequeno e grande das equações
+%  hipoteses.sty   - Comando \hyplist
+%   citacoes.sty   - Mudança na confguração da bibliografia,
+%                    acrescentando numeração a cada título
+%                  - \citenbr para citar apenas o número do
+%                    título na página de REFERÊNCIAS
+%  apendices.sty   - Opção de criar e referencias subapendices
+%       abnt.sty   - Adição de título nível 4: \paragraph{}
+% 6.3 - main.tex   - Adicionados comandos \caixa e \tbox
+% 6.2 - main.tex   - Corrigido \autoref para Apêndices e Anexos
+% 6.1 - main.tex   - Alterado comando de inclusão de logos
+%       capa.tex   - Incluida nova logo da Escola de Engenharia
+% 6.0 - custom.bst - Remoção do <> de links das referências
+%       main.tex   - Alteração da cor dos links de sites para 
+%                    preto
+%                  - A parte de anexos e apêndices foi completa-
+%                    mente refeita, tornando mais simples sua 
+%                    utilização e aumentando a conformidade do
+%                    sumário com a norma
+%  referencias.bib - As referências de exemplo foram melhora-
+%                    das usando os argumentos corretos
+% 5.5 - main.tex   - Atualização de orientações
+%       ficha.tex  - Criação de ficha catalográfica manual
+% 5.4 - custom.bst - Corrigido et al. não estar em itálico
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[a4paper,12pt]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                   PACOTES E ESTILOS DE TEXTO                 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[a4paper,
+            top=3cm,
+            bottom=2cm,
+            left=3cm,
+            right=2cm]{geometry}
+\usepackage[brazilian]{babel} 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{hyphenat}
+\usepackage{titlesec}
+\usepackage{tocloft}
+\usepackage{times}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsbsy}
+\usepackage{relsize}
+\usepackage{esint}
+\usepackage[normalem]{ulem}
+\usepackage{soul}
+\usepackage{color}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{etoolbox}
+\usepackage{booktabs}
+\usepackage{subcaption}
+\usepackage{lastpage}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[square,numbers]{natbib}
+\usepackage[font=footnotesize]{caption}
+\usepackage{svg}
+\usepackage[nopostdot,style=super,nonumberlist]{glossaries}
+\usepackage{comment}
+\usepackage{xcolor,colortbl}
+\usepackage{etoolbox}
+\usepackage{pdfpages}
+\usepackage{ragged2e}
+\usepackage{tikz}
+\usepackage[title]{appendix}
+\usepackage{zref-totpages}
+\usepackage{aliascnt}
+\usepackage{tcolorbox}
+\usepackage[a]{esvect}
+\usepackage{arydshln}
+\usepackage{rotating}
+\usepackage{pdflscape}
+\usepackage{cancel}
+\usepackage{mathtools}
+\usepackage{listing}
+\usepackage{mdframed}
+\usepackage{xstring}
+\usepackage{courier}
+\usepackage{keyval}
+
+%--------------------------------------------------------------%
+%       NORMAS ABNT E CONFIGURAÇÕES DO DOCUMENTO               %
+%--------------------------------------------------------------%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% FORMATO ABNT %%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/abnt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% CITAÇÕES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/citacoes}
+
+%%%%%%%%%%%%%%%%%%%%%% ELEMENTOS VISUAIS %%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/elementos}
+
+%%%%%%%%%%%%%%%%%%% FORMATAÇÃO DE APÊNCDICES %%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/apendices}
+
+%%%%%%%%%%%%%%%%%%%% AMBIENTES MATEMÁTICOS %%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/matematica}
+
+%%%%%%%%%%%%%%%% AMBIENTE PARA LISTAR HIPÓTESES %%%%%%%%%%%%%%%%
+\usepackage{estilos/hipoteses}
+
+%%%%%%%%%%%%%%%%%%%%%% INSRÇÃO DE CÓDIGOS %%%%%%%%%%%%%%%%%%%%%%
+\usepackage{estilos/codigo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      INÍCIO DO DOCUMENTO                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+%--------------------------------------------------------------%
+%                 ELEMENTOS PRÉ-TEXTUAIS                       %
+%--------------------------------------------------------------%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% CAPA %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{pre-textuais/capa}
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%% FOLHA DE ROSTO %%%%%%%%%%%%%%%%%%%%%%%%
+% \include{pre-textuais/rosto}
+
+%%%%%%%%%%%%%%%%%%%%% FICHA CATALOGRÁFICA %%%%%%%%%%%%%%%%%%%%%%
+% \include{pre-textuais/ficha}
+
+%%%%%%%%%%%%%%%%%%%%%% FOLHA DE APROVAÇÃO %%%%%%%%%%%%%%%%%%%%%%
+% \include{pre-textuais/ata}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% DEDICATÓRIA %%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \include{pre-textuais/dedicatoria}
+
+%%%%%%%%%%%%%%%%%%%%%%%% AGRADECIMENTOS %%%%%%%%%%%%%%%%%%%%%%%% 
+% \include{pre-textuais/agradecimentos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% EPÍGRAFE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \include{pre-textuais/epigrafe}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% RESUMO %%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+% \include{pre-textuais/resumo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \include{pre-textuais/abstract}
+
+%%%%%%%%%%%%%%%%%%%%% LISTA DE ILUSTRAÇÕES %%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\begingroup
+    \makeatletter
+        \let\ps@plain\ps@empty
+    \makeatother
+    \pagestyle{empty}
+    \listoffigures
+    \cleardoublepage
+\endgroup
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%% LISTA DE TABELAS %%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\begingroup
+    \makeatletter
+        \let\ps@plain\ps@empty
+    \makeatother
+    \pagestyle{empty}
+    \listoftables
+    \cleardoublepage
+\endgroup
+\clearpage
+
+%%%%%%%%%%%%%%%% LISTA DE ABREVIATURAS E SIGLAS %%%%%%%%%%%%%%%%
+% \include{pre-textuais/abreviaturas}
+% \cleardoublepage
+% \begingroup
+%     \makeatletter
+%         \let\ps@plain\ps@empty
+%     \makeatother
+%     \pagestyle{empty}
+%     \listadesiglas
+%     \cleardoublepage
+% \endgroup
+% \clearpage
+
+%%%%%%%%%%%%%%%%%%%%%% LISTA DE SÍMBOLOS %%%%%%%%%%%%%%%%%%%%%%%
+% \include{pre-textuais/simbolos}
+% \cleardoublepage
+% \begingroup
+%     \makeatletter
+%         \let\ps@plain\ps@empty
+%     \makeatother
+%     \pagestyle{empty}
+%     \listadesimbolos
+%     \cleardoublepage
+% \endgroup
+% \clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% SUMÁRIO %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%               CONFIGURAÇÕES DE SUMÁRIO
+% Controle de espaçamento vertical
+    \setlength{\cftbeforesecskip}{0.5em}
+    \setlength{\cftbeforesubsecskip}{0.5em}
+    \setlength{\cftbeforesubsubsecskip}{0.5em}
+    \setlength{\cftbeforeparaskip}{0.3em}
+    \setlength{\cftaftertoctitleskip}{1.5em}
+% Controle de espaçamento entre número
+    \setlength{\cftsecnumwidth}{1.5cm}
+    \setlength{\cftsubsecnumwidth}{1.5cm}
+    \setlength{\cftsubsubsecnumwidth}{1.5cm}
+    \setlength{\cftparanumwidth}{1.5cm}
+% Controle de indentação
+    \setlength{\cftsubsecindent}{0pt}
+    \setlength{\cftsubsubsecindent}{0pt}
+
+% Controle de pontilhado
+\renewcommand{\cftdot}{.}   % {.} para linhas pontilhadas
+                            % {} para sem linhas pontilhadas
+\cleardoublepage
+    \begingroup
+    \makeatletter
+        \let\ps@plain\ps@empty
+    \makeatother
+    \pagestyle{empty}
+    \tableofcontents
+    \cleardoublepage
+\endgroup
+\clearpage
+
+%--------------------------------------------------------------%
+%                    ELEMENTOS TEXTUAIS                        %
+%--------------------------------------------------------------%
+\sloppy
+
+\include{sec/1_introducao}
+\include{sec/2_fundamentação}
+\include{sec/3_discussão}
+\include{sec/4_conclusao}
+
+%--------------------------------------------------------------%
+%                   ELEMENTOS PÓS-TEXTUAIS                     %
+%--------------------------------------------------------------%
+
+%%%%%%%%%%%%%%%%%%%%%%%%% REFERENCIAS %%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newpage
+% \phantomsection
+% \addcontentsline{toc}{section}{\hspace{1.5cm}REFERÊNCIAS}
+% \bibliographystyle{arquivos/custom.bst}
+% \bibliography{pos-textuais/referencias.bib}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% APÊNDICES %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \include{pos-textuais/apendiceA}
+% \include{pos-textuais/apendiceB}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% ANEXOS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \include{pos-textuais/anexoI}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       FIM DO DOCUMENTO                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

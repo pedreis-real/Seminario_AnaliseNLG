@@ -1,0 +1,60 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{estilos/elementos}
+
+%---------------------------------------------------------%
+% Comando para símbolo de link externo bonitinho
+\newcommand{\ExternalLink}{%
+    \tikz[x=1.2ex, y=1.2ex, baseline=-0.05ex]{%
+        \begin{scope}[x=1ex, y=1ex]
+            \clip (-0.1,-0.1)
+                --++ (-0, 1.2)
+                --++ (0.6, 0)
+                --++ (0, -0.6)
+                --++ (0.6, 0)
+                --++ (0, -1);
+            \path[draw,
+                line width = 0.5,
+                rounded corners=0.5]
+                (0,0) rectangle (1,1);
+        \end{scope}
+        \path[draw, line width = 0.5] (0.5, 0.5)
+            -- (1, 1);
+        \path[draw, line width = 0.5] (0.6, 1)
+            -- (1, 1) -- (1, 0.6);
+        }
+    }
+%---------------------------------------------------------%
+% Comando de caixa com título
+\newcommand{\tbox}[2]{
+\begin{center}
+\begin{tcolorbox}[colback=gray!5!white,colframe=black!75!black, title=#1]
+#2
+\end{tcolorbox}
+\end{center}
+}
+%---------------------------------------------------------%
+% Comando de caixa quadrada
+\newcommand{\caixa}[1]{%
+\par\vspace{1em}
+  \noindent\fbox{%
+    \begin{minipage}{\textwidth}
+      #1
+    \end{minipage}%
+\par\vspace{1em}
+  }%
+}
+%---------------------------------------------------------%
+% Inclusão de logotipos na capa
+\newcommand{\includeunivlogo}[3]{
+    \begin{minipage}{#3}
+            \flushleft
+            \includegraphics[width=#2,keepaspectratio=true]{#1}
+    \end{minipage}
+}
+\newcommand{\includeunitlogo}[3]{
+    \begin{minipage}{#3}
+            \flushright
+            \includegraphics[width=#2,keepaspectratio=true]{#1}
+            %\includegraphics[width=2.8cm,keepaspectratio=true]{arquivos/logo_ee.eps}
+    \end{minipage}
+}

@@ -1,0 +1,41 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{estilos/matematica}
+
+%---------------------------------------------------------%
+% Estilo matemático
+% \everymath{\displaystyle}
+
+% Ambiente para criação de equações com fonte de texto menor. A hierarquia das fontes,
+% da maior para a menor, é:
+%
+% 1) \displaystyle
+% 2) \scriptstyle
+% 3) \scriptscriptstyle
+
+\newenvironment{smallEquation}{
+  \begingroup
+  \everymath{\scriptscriptstyle} % <- alterar conforme necessidade
+  \equation
+}{
+  \endequation
+  \endgroup
+}
+
+\newenvironment{bigEquation}{
+  \begingroup
+  \everymath{\displaystyle} % <- alterar conforme necessidade
+  \equation
+}{
+  \endequation
+  \endgroup
+}
+
+\newcommand{\circled}[1]{%
+  \tikz[baseline=(char.base)]{
+    \node[shape=circle,draw,inner sep=0.5pt] (char) {#1};
+  }%
+}
+%---------------------------------------------------------%
+% Numeração de Equações
+% Numera as equações por seção no formato (Seção.Equação)
+\numberwithin{equation}{section}

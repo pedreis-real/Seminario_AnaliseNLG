@@ -1,0 +1,60 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{estilos/apendices}
+
+%---------------------------------------------------------%
+% Comando para apêndices e anexos
+\newcounter{apendice}
+\renewcommand{\theapendice}{\Alph{apendice}}
+\newcommand{\apendiceautorefname}{Apêndice}
+
+\newcommand{\apendice}[1]{
+    \phantomsection
+    \refstepcounter{apendice}
+    \section*{\centering APÊNDICE \theapendice\ - #1}
+    \addcontentsline{toc}{section}{
+        \MakeUppercase{APÊNDICE \theapendice\ - #1}
+    }
+    \justifying
+}
+
+\newcounter{subapendice}[apendice]
+\renewcommand{\thesubapendice}{\theapendice.\arabic{subapendice}}
+\newcommand{\subapendiceautorefname}{Apêndice}
+
+\newcommand{\subapendice}[1]{
+    \phantomsection
+    \refstepcounter{subapendice}
+    \subsection*{\thesubapendice\ - #1}
+    \addcontentsline{toc}{subsection}{
+        \hspace{1.3cm} \thesubapendice\ - #1
+    }
+    \justifying
+}
+
+\newcounter{anexo}
+\renewcommand{\theanexo}{\Roman{anexo}}
+\newcommand{\anexoautorefname}{Anexo}
+
+\newcommand{\anexo}[1]{
+    \phantomsection
+    \refstepcounter{anexo}
+    \section*{\centering ANEXO \theanexo\ - #1}
+    \addcontentsline{toc}{section}{
+        \MakeUppercase{ANEXO \theanexo\ - #1}
+    }
+    \justifying
+}
+
+\newcounter{subanexo}[anexo]
+\renewcommand{\thesubanexo}{\theanexo.\arabic{subanexo}}
+\newcommand{\subanexoautorefname}{Anexo}
+
+\newcommand{\subanexo}[1]{
+    \phantomsection
+    \refstepcounter{subanexo}
+    \subsection*{\thesubanexo\ - #1}
+    \addcontentsline{toc}{subsection}{
+        \hspace{1.3cm} \thesubanexo\ - #1
+    }
+    \justifying
+}

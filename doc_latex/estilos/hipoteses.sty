@@ -1,0 +1,27 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{estilos/hipoteses}
+
+%---------------------------------------------------------%
+% Lista de hipóteses
+\newcounter{hyplistgrp}
+\newcounter{hyplistitem}
+
+\newlist{hyplist}{enumerate}{3}
+
+\setlist[hyplist,1]{
+label=\textbf{H[\arabic{hyplistgrp}.\arabic*]},
+ref=H[\arabic{hyplistgrp}.\arabic*],
+leftmargin=*
+}
+
+\setlist[hyplist,2]{
+label=\textbf{H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic*]},
+ref=H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic*],
+leftmargin=*
+}
+
+\setlist[hyplist,3]{
+label=\textbf{H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic{hyplistii}.\arabic*]},
+ref=H[\arabic{hyplistgrp}.\arabic{hyplisti}.\arabic{hyplistii}.\arabic*],
+leftmargin=*
+}

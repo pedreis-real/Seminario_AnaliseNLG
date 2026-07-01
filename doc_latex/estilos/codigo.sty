@@ -1,0 +1,183 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{estilos/codigo}
+
+\RequirePackage{listings}
+\RequirePackage{pgfkeys}
+
+% ============================================================
+%  PALETA - ONE MONOKAI ADAPTADA PARA FUNDO CLARO
+% ============================================================
+\definecolor{cm@bg}      {HTML}{FAFAFA}   % fundo quase-branco
+\definecolor{cm@base}    {HTML}{383A42}   % texto base
+\definecolor{cm@keyword} {HTML}{A626A4}   % keywords     - roxo
+\definecolor{cm@string}  {HTML}{50A14F}   % strings      - verde
+\definecolor{cm@comment} {HTML}{A0A1A7}   % comentários  - cinza médio
+\definecolor{cm@number}  {HTML}{986801}   % números      - âmbar
+\definecolor{cm@func}    {HTML}{4078F2}   % funções      - azul
+\definecolor{cm@type}    {HTML}{C18401}   % tipos/classes- amarelo-torrado
+\definecolor{cm@builtin} {HTML}{0184BC}   % built-ins    - ciano
+\definecolor{cm@oper}    {HTML}{E45649}   % operadores   - vermelho-coral
+\definecolor{cm@linenum} {HTML}{A2A2A2}   % números de linha
+\definecolor{cm@border}  {HTML}{E0E0E0}   % borda lateral sutil
+\definecolor{cm@ruler}   {HTML}{EBEBEB}   % separador da coluna de linha
+
+% ============================================================
+%  ESTILO LISTINGS - ONE MONOKAI LIGHT
+% ============================================================
+\lstdefinestyle{onemonokai-light}{
+  %--- cores ---
+  basicstyle        = \scriptsize\fontfamily{FiraMono-TLF}\selectfont\color{cm@base},
+  keywordstyle      = \color{cm@keyword}\bfseries,
+  keywordstyle      = [2]\color{cm@builtin},
+  keywordstyle      = [3]\color{cm@type},
+  stringstyle       = \color{cm@string},
+  commentstyle      = \color{cm@comment}\itshape,
+  identifierstyle   = \color{cm@base},
+  numberstyle       = \tiny\color{cm@linenum},
+  %--- fundo e moldura ---
+  backgroundcolor   = \color{cm@bg},
+  frame             = l,
+  framerule         = 3pt,
+  rulecolor         = \color{cm@border},
+  framesep          = 8pt,
+  %--- layout ---
+  numbers           = left,
+  numbersep         = 12pt,
+  xleftmargin       = 2em,
+  xrightmargin      = 1em,
+  aboveskip         = 0pt,
+  belowskip         = 0pt,
+  breaklines        = true,
+  breakatwhitespace = false,
+  tabsize           = 4,
+  showstringspaces  = false,
+  keepspaces        = true,
+}
+
+% ============================================================
+%  MAPEAMENTO: EXTENSÃO -> LINGUAGEM DO LISTINGS
+% ============================================================
+\newcommand{\cm@resolvelang}[1]{%
+  \StrBehind{#1}{.}[\cm@ext]%
+  \IfStrEqCase{\cm@ext}{%
+    {py}   {\def\cm@lang{Python}}%
+    {js}   {\def\cm@lang{JavaScript}}%
+    {ts}   {\def\cm@lang{Python}}%       % listings não tem TS nativo
+    {c}    {\def\cm@lang{C}}%
+    {h}    {\def\cm@lang{C}}%
+    {cpp}  {\def\cm@lang{C++}}%
+    {cc}   {\def\cm@lang{C++}}%
+    {cxx}  {\def\cm@lang{C++}}%
+    {hpp}  {\def\cm@lang{C++}}%
+    {java} {\def\cm@lang{Java}}%
+    {cs}   {\def\cm@lang{[Sharp]C}}%
+    {rb}   {\def\cm@lang{Ruby}}%
+    {php}  {\def\cm@lang{PHP}}%
+    {go}   {\def\cm@lang{Golang}}%       % requer lstdefinelanguage Go (abaixo)
+    {rs}   {\def\cm@lang{Rust}}%         % requer lstdefinelanguage Rust (abaixo)
+    {sh}   {\def\cm@lang{bash}}%
+    {bash} {\def\cm@lang{bash}}%
+    {zsh}  {\def\cm@lang{bash}}%
+    {sql}  {\def\cm@lang{SQL}}%
+    {r}    {\def\cm@lang{R}}%
+    {m}    {\def\cm@lang{Matlab}}%
+    {tex}  {\def\cm@lang{TeX}}%
+    {lua}  {\def\cm@lang{Lua}}%
+    {pl}   {\def\cm@lang{Perl}}%
+    {scala}{\def\cm@lang{Scala}}%
+    {kt}   {\def\cm@lang{Kotlin}}%       % requer lstdefinelanguage Kotlin
+    {swift}{\def\cm@lang{Swift}}%        % requer lstdefinelanguage Swift
+    {xml}  {\def\cm@lang{XML}}%
+    {html} {\def\cm@lang{HTML}}%
+    {css}  {\def\cm@lang{HTML}}%
+    {json} {\def\cm@lang{}}%
+    {yaml} {\def\cm@lang{}}%
+    {toml} {\def\cm@lang{}}%
+  }[\def\cm@lang{}]%                     % fallback: sem highlight
+}
+
+% ============================================================
+%  LINGUAGENS EXTRAS (Go, Rust, Kotlin - não vêm no listings)
+% ============================================================
+\lstdefinelanguage{Golang}{
+  morekeywords={break,case,chan,const,continue,default,defer,else,
+    fallthrough,for,func,go,goto,if,import,interface,map,package,
+    range,return,select,struct,switch,type,var},
+  morekeywords=[2]{make,len,cap,new,append,copy,close,delete,
+    panic,recover,print,println,error,nil,true,false,iota},
+  morekeywords=[3]{string,int,int8,int16,int32,int64,uint,uint8,
+    uint16,uint32,uint64,uintptr,float32,float64,complex64,
+    complex128,byte,rune,bool},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]`,
+}
+
+\lstdefinelanguage{Rust}{
+  morekeywords={as,break,const,continue,crate,dyn,else,enum,extern,
+    false,fn,for,if,impl,in,let,loop,match,mod,move,mut,pub,ref,
+    return,self,Self,static,struct,super,trait,true,type,unsafe,use,
+    where,while,async,await},
+  morekeywords=[2]{Some,None,Ok,Err,Vec,String,Box,Option,Result,
+    println,print,panic,assert,assert_eq,assert_ne,todo,unimplemented},
+  morekeywords=[3]{i8,i16,i32,i64,i128,isize,u8,u16,u32,u64,u128,
+    usize,f32,f64,bool,char,str},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+}
+
+% ============================================================
+%  COMANDO PRINCIPAL: \inputcode[opções]{caminho/para/arquivo.ext}
+%
+%  Opções (chave=valor, todas opcionais):
+%    width        - largura da área de código  (padrão: \linewidth)
+%    firstline    - primeira linha a exibir     (padrão: início do arquivo)
+%    lastline     - última linha a exibir       (padrão: fim do arquivo)
+%
+%  Exemplos:
+%    \inputcode{src/main.py}
+%    \inputcode[width=0.8\linewidth]{src/main.py}
+%    \inputcode[firstline=10, lastline=30]{src/main.py}
+%    \inputcode[width=0.9\linewidth, firstline=5, lastline=20]{src/main.py}
+% ============================================================
+\pgfkeys{
+  /cm/.is family, /cm,
+  width/.store in     = \cm@width,
+  firstline/.store in = \cm@firstline,
+  lastline/.store in  = \cm@lastline,
+  width               = \linewidth,
+  firstline           = {},
+  lastline            = {},
+}
+
+\newcommand{\inputcode}[2][]{%
+  \pgfkeys{/cm, width=\linewidth, firstline={}, lastline={}, #1}%
+  \cm@resolvelang{#2}%
+  % monta as opções de recorte de linhas apenas se fornecidas
+  \def\cm@linerange{}%
+  \ifx\cm@firstline\empty\else
+    \edef\cm@linerange{\cm@linerange, firstline=\cm@firstline}%
+  \fi
+  \ifx\cm@lastline\empty\else
+    \edef\cm@linerange{\cm@linerange, lastline=\cm@lastline}%
+  \fi
+  \mdframed[%
+    backgroundcolor  = cm@bg,
+    linewidth        = 0pt,
+    userdefinedwidth = \cm@width,
+    align            = center,
+    innerleftmargin  = 0pt,
+    innerrightmargin = 0pt,
+    innertopmargin   = 10pt,
+    innerbottommargin= 10pt,
+    skipabove        = \medskipamount,
+    skipbelow        = \medskipamount,
+  ]%
+    \edef\cm@lstopts{style=onemonokai-light, language=\cm@lang\cm@linerange}%
+    \expandafter\lstinputlisting\expandafter[\cm@lstopts]{#2}%
+  \endmdframed
+}

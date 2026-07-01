@@ -1,0 +1,159 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                    LISTA DE SÍMBOLOS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\listadesimbolos}{
+\centering
+\thispagestyle{empty}
+\hypertarget{link}{\textbf{LISTA DE SÍMBOLOS}}
+\vspace{0.5 em}
+
+% \small
+% \begin{multicols}{2}
+    \begin{itemize}[
+        labelwidth=1.5cm,
+        align=left,
+        itemindent=0cm,
+        leftmargin=2cm,
+        itemsep=0em
+    ]
+
+    % ---------- Letras gregas ----------
+    \item[$\alpha$] Ângulo de ataque
+    \item[$\Gamma$] Ângulo de diedro
+    \item[$\Gamma_n$] Intensidade do vórtice-ferradura
+    \item[$\boldsymbol{[\gamma]}$] Submatriz de rotação
+    \item[$\gamma_{ij}$] Deformação angular de cisalhamento
+    \item[$\boldsymbol{[\Delta]}$] Matriz dos parâmetros geométricos da seção multicelular
+    \item[$\delta_R$] Parâmetro geométrico da $R$-ésima célula
+    \item[$\delta_{R,R\pm 1}$] Parâmetro geométrico da parede comum entre células
+    \item[$\epsilon_{ij}$] Tensor de deformação infinitesimal
+    \item[$\{\boldsymbol{\epsilon}^0\}$] Vetor de deformação de membrana
+    \item[$\xi_s, \eta_s$] Coordenadas do centro de cisalhamento
+    \item[$\xi_0, \eta_0$] Braços de momento das forças cortantes
+    \item[$\eta_{ij}$] Fatores de acoplamento ao cisalhamento
+    \item[$\eta^2$] Índice de tamanho de efeito (eta-quadrado) 
+    \item[$\theta$] Ângulo de torção (geométrica ou estrutural)
+    \item[$\{\boldsymbol{\theta}\}$] Vetor de rotações nodais
+    \item[$\theta_P$] Ângulo principal de inércia
+    \item[$\{\boldsymbol{\kappa}\}$] Vetor de curvaturas do laminado
+    \item[$\Lambda$] Ângulo de enflechamento
+    \item[$\lambda$] Afilamento; fator de aprimoramento ganancioso (\acrshort{de})
+    \item[$\mu$] Viscosidade dinâmica do ar
+    \item[$\nu$] Viscosidade cinemática do ar
+    \item[$\nu_{ij}$] Coeficiente de Poisson
+    \item[$\rho$] Densidade do ar
+    \item[$\sigma$] Tensão normal
+    \item[$\sigma_{ij}$] Tensor tensão de Cauchy
+    \item[$\tau$] Tensão de cisalhamento
+    \item[$\psi_1, \psi_2$] Penalidades nos patamares de violação $v_1$ e $v_2$
+    
+    \clearpage
+    % ---------- Letras latinas ----------
+    \item[$a$] Velocidade do som;
+    ângulo de rotação do eixo local (azimutal)
+    \item[$\mathbf{[A]}$] Matriz de rigidez de membrana do laminado
+    \item[$\mathbf{[a]}$] Matriz de flexibilidade de membrana do laminado
+    \item[$A$] Área de seção transversal
+    \item[$A_R$] Área envolta pela $R$-ésima célula
+    \item[$b$] Envergadura;
+    ângulo de rotação do eixo local (elevação)
+    \item[$\mathbf{[B]}$] Matriz de acoplamento do laminado
+    \item[$B_n$] Área do $n$-ésimo \textit{boom}
+    \item[$c$] Corda local do perfil;
+    ângulo de rotação do eixo local (alma)
+    \item[$c_r$] Corda na raiz da asa
+    \item[$c_t$] Corda na ponta da asa
+    \item[$\overline{\overline{c}}$] Corda média aerodinâmica
+    \item[$C$] Centro do círculo de Mohr;
+    centroide
+    \item[$C_{ijkl}$] Tensor constitutivo (de rigidez)
+    \item[$\vv{C_{mn}}$] Coeficientes vetoriais do \acrshort{vlm}
+    \item[$\mathbf{[D]}$] Matriz de rigidez à flexão do laminado
+    \item[$\mathbf{[d]}$] Matriz de flexibilidade à flexão do laminado
+    \item[$\vv{D}$] Força de arrasto
+    \item[$\{\mathbf{d}\}$] Vetor global de deslocamentos nodais
+    \item[$E_1, E_x$] Módulos de elasticidade longitudinal
+    \item[$E_2, E_y$] Módulos de elasticidade transversal
+    \item[$E_s$] Módulo de cisalhamento do laminado
+    \item[$\vv{F_A}$] Força axial aerodinâmica
+    \item[$\vv{F_N}$] Força normal aerodinâmica
+    \item[$\{\mathbf{F}\}$] Vetor global de forças e momentos nodais
+    \item[$F$] Fator de escala da Evolução Diferencial
+    \item[$F_i, F_{ij}$] Tensores de resistência do critério de Tsai-Wu
+    \item[$\{\mathbf{f}\}$] Vetor local de forças e momentos nodais
+    \item[$f(\mathrm{X})$; $f_\text{min}$; $f^\star$]
+    Valor de fitness da função objetivo; mínimo; ótimo
+    \item[$G$] Módulo de cisalhamento
+    \item[$G_\mathrm{REF}$] Módulo de cisalhamento de referência
+    \item[$g(z)$] Função sigmoide
+    \item[$H_C$] Altitude de voo de cruzeiro
+    \item[$h$] Espessura total do laminado
+    \item[$I_{xx}, I_{yy}$] Momentos de inércia de área
+    \item[$I_{xy}$] Produto de inércia
+    \item[$I_{1,2}$] Momentos principais de inércia
+    \item[$J$] Constante torcional
+    \item[$k$; $k_\text{max}$; $k_\text{conv}$]
+    Número de iterações; máximo; até a convergência
+    \item[$\mathbf{[K]}$] Matriz de rigidez global da estrutura
+    \item[$\mathbf{[k]}$] Matriz de rigidez local do elemento
+    \item[$\vv{L}$] Força de sustentação
+    \item[$L$] Comprimento do elemento reticulado;
+    penalidade máxima (\acrshort{de})
+    \item[$\vv{M_a}$] Momento aerodinâmico
+    \item[$M$] Momento fletor
+    \item[$M_x, M_y$] Componentes do momento fletor
+    \item[$m^\star$] Massa final da estrutural otimizada
+    \item[$N$] Esforço normal
+    \item[$\{\mathbf{N}\}$] Vetor de forças por unidade de comprimento (laminado)
+    \item[$\mathrm{NP}$] Tamanho da população
+    \item[$\hat{n}$] Vetor normal à superfície
+    \item[$\mathrm{P}(\mathbf{x})$] Função de penalidade
+    \item[$P_\text{cap}$] Penalidade máxima
+    \item[$p_0$] Distância perpendicular ao centro de momento
+    \item[$Q_{ij}$] Tensor de rigidez da lâmina
+    \item[$\{\mathbf{Q}\}$] Vetor de esforços internos do elemento
+    \item[$q$] Fluxo de cisalhamento
+    \item[$q_b$] Fluxo de cisalhamento de seção aberta
+    \item[$q_{s,0}$] Fluxo de cisalhamento de seção fechada
+    \item[$R$] Raio do círculo de Mohr;
+    razão de resistência (\acrshort{tsw});
+    índice de célula
+    \item[$\vv{r}$] Vetor posição
+    \item[$S$] Limite de resistência ao cisalhamento;
+    centro de cisalhamento
+    \item[$S_x, S_z$] Forças cortantes aplicadas na seção
+    \item[$S_{ijkl}$] Tensor de flexibilidade (compliance)
+    \item[$s$] Coordenada curvilínea ao longo da parede
+    \item[$s_k$] Comprimento do $k$-ésimo segmento
+    \item[$T$] Momento torsor
+    \item[$\mathbf{[T]}$] Matriz de rotação do sistema local para o global
+    \item[$\mathbf{[T_\sigma^\pm]}$] Matriz de transformação de tensão (laminado)
+    \item[$\mathbf{[T_\epsilon^\pm]}$] Matriz de transformação de deformação (laminado)
+    \item[$t$] Espessura do painel
+    \item[$t^\ast$] Espessura normalizada pela rigidez ao cisalhamento
+    \item[$\{\mathbf{u}\}$] Vetor de deslocamentos lineares nodais
+    \item[$u,v,w$] Coordenadas no sistema centroidal
+    \item[$\mathbf{u}$] Vetor de teste da Evolução Diferencial
+    \item[$V$] Esforço cortante
+    \item[$V_C$] Velocidade de cruzeiro
+    \item[$\vv{V_\infty}$] Velocidade do escoamento livre
+    \item[$\mathbf{v}$] Vetor de mutação da Evolução Diferencial
+    \item[$v$] Função escalar de violação
+    \item[$w_m$] Coeficiente de ponderação da função objetivo
+    \item[$\mathbf{x}$] Vetor de variáveis de otimização
+    \item[$\{\mathbf{x}\}$] Vetor local de deslocamentos nodais
+    \item[$X, X'$] Resistência à tração e compressão longitudinal do \textit{ply}
+    \item[$X,Y,Z$] Sistema de coordenadas global
+    \item[$x,y,z$] Sistema de coordenadas local
+    \item[$x',y',z'$] Sistema de coordenadas intermediário 1
+    \item[$x'',y'',z''$] Sistema de coordenadas intermediário 2
+    \item[$x_c, y_c$] Coordenadas do centroide
+    \item[$Y, Y'$] Resistência à tração e compressão transversal do \textit{ply}
+    \item[$z(\mathbf{x})$] Função objetivo
+    \item[$z_k$] Distância da $k$-ésima lâmina ao plano médio
+    
+    \end{itemize}
+% \end{multicols}
+% \normalsize
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}

@@ -1,0 +1,311 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%       REPOSITÓRIO DE AMBIENTES E COMANDOS DO LATEX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Usar \autoref{} para referenciar Figuras, Tabelas, Equações.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%  ASPAS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Usar ``acento grave duplo no iníncio e apóstrofo duplo no final''
+
+%%%%%%%%%% TEXTO DE CITAÇÃO DIRETA + 3 LINHAS %%%%%%%%%%%%%%%%
+
+\directcitation{ref} 
+
+%%%%%%%%%%%%%%%%%%%%% CITAÇÃO DIRETA %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\cite{gossens}        -> (GOOSSENS et al., 1993)
+\citep[20]{gossens}   -> (GOOSSENS et al., 1993, p. 20)
+\citealt{gossens}     -> GOOSSENS et al. (1993)
+\citealp[20]{gossens} -> GOOSSENS et al. (1993, p. 20)
+
+%%%%%%%%%% CONTADOR DE FIG/TAB/EQ DIVIDIDO POR SEÇÃO %%%%%%%%
+
+\counterwithin{figure}{section}
+\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% FIGURAS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+Melhores formatos de imagem em ordem: eps, svg, png, jpg.
+
+\begin{figure}[H]
+    \centering
+    \caption{Legenda.}
+    \includegraphics[width=0.5\textwidth,keepaspectratio=true]{figura.png}
+    \caption*{Fonte: Autor, \citeyear{autor}.}
+    \label{fig:fig1}
+\end{figure}
+
+======================  SUB FIGURA ========================
+
+\begin{figure}[H]
+     \centering
+     \caption{Fotos das montagens do circuito da prática}
+     \begin{subfigure}[H]{0.4 \textwidth}
+         \centering
+         \includegraphics[width=1\textwidth]{figura.jpeg}
+         \caption{\centering Legenda}
+     \end{subfigure}
+     \begin{subfigure}[H]{0.4 \textwidth}
+         \centering
+         \includegraphics[width=1\textwidth]{figura.jpeg}
+         \caption{\centering Legenda}
+     \end{subfigure}
+    \caption*{Fonte: Autor, \citeyear{autor}.}
+    \label{fig:subfig1}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% TABELAS %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{table}[H]
+    \centering
+    \caption{Legenda.}
+    \begin{tabular}{l c}
+        \toprule
+        Parâmetro & Valor\\
+        \midrule
+        A & 1 \\
+        B & 2 \\
+        C & 3 \\
+        D  & 4 \\
+        \bottomrule
+    \end{tabular}
+    \caption*{Fonte: Autor, \citeyear{autor}.}
+    \label{tab:tab1}
+\end{table}
+
+FAZER TABELA CABER: \resizebox{\textwidth}{!}{} com \begin{tabular} dentro dos {}
+
+%%%%%%%%%%%%%%%%%%%%%%%%% EQUAÇÕES %%%%%%%%%%%%%%%%%%%%%%%%%
+Numerada:
+
+\begin{equation}
+    a = b + c
+    \label{eq:eq1}
+\end{equation}
+
+Sem número:
+
+\[
+ a = b + c
+\]
+
+%%%%%%%%%%%%%%%%%%%%%%%%% TÓPICOS %%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{itemize}
+    \item Objetivo 1
+    \item Objetivo 2
+\end{itemize}
+
+Utilize \item[] para alterar o indicador de item
+Utilize \itemsep 0em para controlar o espaço entre itens
+
+%%%%%%%%%%%%%%%%%%%%%%%%%% LISTA %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}
+    \item Primeiro passo
+    \item Segundo passo
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%% REFERÊNCIA ESCONDIDA %%%%%%%%%%%%%%%%%%
+
+\nocite{}
+
+%%%%%%%%%%%%%%%%%%%%%%%% INCLUIR PDFS %%%%%%%%%%%%%%%%%%%%%%
+
+\includepdf[pages=-,pagecommand=\thispagestyle{empty}]{documento.pdf}
+
+Retirar pagestyle para numerar.
+
+%%%%%%%%%%%%%%%%%% INCLUIR CÓDIGO DE PROGRAMAS %%%%%%%%%%%%%
+
+\scriptsize{
+\begin{verbatim}
+print("Hello World!")
+\end{verbatim}}
+
+%%%%%%%%%%%%%%%%%% SÍMBOLOS MATEMÁTICOS %%%%%%%%%%%%%%%%%%%%
+Mais informações:   
+https://en.wikibooks.org/wiki/LaTeX/Mathematics
+https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols
+
+----------------- FUNÇÕES ------------------
+
+\arccos
+\csc
+\ker
+\min
+\arcsin
+\deg
+\lg
+\Pr
+\arctan
+\det
+\lim
+\sec
+\arg
+\dim
+\liminf
+\sin
+\cos
+\exp
+\limsup
+\sinh
+\cosh
+\gcd
+\ln
+\sup
+\cot
+\hom
+\log
+\tan
+\coth
+\inf
+\max
+\tanh
+
+-------------- LETRAS GREGAS ----------------
+
+α   \alpha          
+β   \beta
+γ   \gamma          Γ   \Gamma
+δ   \delta          Δ   \Delta
+ε   \epsilon        
+    \varepsilon
+ζ   \zeta
+η   \eta
+θ   \theta          Θ   \Theta
+ϑ   \vartheta
+ι   \iota
+κ   \kappa
+    \varkappa
+λ   \lambda         Λ   \Lambda
+μ   \mu
+ν   \nu
+ξ   \xi             Ξ   \Xi
+π   \pi             Π   \Pi
+ϖ   \varpi
+ρ   \rho                
+p̺̺   \varrho
+σ   \sigma          Σ   \Sigma
+ς   \varsigma
+τ   \tau
+υ   \upsilon        Υ   \Upsilon
+φ   \phi            Φ   \Phi
+ϕ   \varphi
+χ   \chi            
+ψ   \psi            Ψ   \Psi
+ω   \omega          Ω   \Omega   ℧ \mho
+
+ℵ \aleph
+ג \gimel
+ℑ \Im
+℘ \wp 
+ℜ \Re
+ℓ \ell 
+ð \eth
+
+∑ \sum
+∏ \prod
+∫ \int
+∫∫ \iint
+∫∫∫ \iiint
+∮ \oint
+∯ \oiint
+∅ \emptyset
+∞ \infty 
+∂ \partial
+∇ \nabla
+∃ \exists
+∄ \nexists
+∈ \in
+∋ \ni
+∀ \forall 
+± \pm
+∓ \mp 
+∩ \cap  \bigcap
+∪ \cup  \bigcup
+⊂ \subset
+⊃ \supset
+\ \setminus 
+⊎ \uplus
+· \cdot 
+⊓ \sqcap
+⊔ \sqcup    \bigsqcup
+× \times
+÷ \div
+≅ \approxeq
+≈ \approx
+= \neq
+≡ \equiv
+≃ \simeq
+≦ \leqq     \leqslant
+≧ \geqq     \geqslant
+∝ \propto
+∴ \therefore
+
+---------------- SETAS ----------------
+
+↑ \uparrow
+↓ \downarrow    \updownarrow
+← \leftarrow    \longleftarrow
+→ \rightarrow   \longrightarrow
+⇑ \Uparrow
+⇓ \Downarrow    \Updownarrow
+⇒ \Rightarrow   \Longrightarrow
+⇐ \Leftarrow    \Longleftarrow
+↔ \leftrightarrow ←→ \longleftrightarrow
+⇔ \Leftrightarrow ⇐⇒ \Longleftrightarrow
+⇆ \leftrightarrows 
+⇌ \leftrightharpoons
+↝ \leadsto
+
+----------------- MISC ----------------
+
+∗ \ast 
+′ \prime
+~ \hbar
+≀ \wr
+ı \imath 
+ \jmath 
+√ \surd
+⊤ \top
+⊥ \bot
+|| \|
+∠ \angle
+∡ \measuredangle
+△ \triangle         \bigtriangleup
+△ \vartriangle
+▽ \triangledown     \bigtriangledown
+⊳ \triangleleft
+⊲ \triangleright
+\ \backslash
+▢ \square           \Box
+♦ \lozenge
+✸ \Diamond
+⋆ \star 
+⋄ \diamond 
+♯ \sharp
+¬ \neg 
+♭ \flat 
+♮ \natural
+♣ \clubsuit
+♦ \diamondsuit
+♥ \heartsuit
+♠ \spadesuit
+◦ \circ         \bigcirc
+• \bullet 
+∨ \vee 
+∧ \wedge 
+† \dagger
+‡ \ddagger
+⊙ \odot     \bigodot
+⊕ \oplus    \bigoplus
+⊗ \otimes   \bigotimes
+⊖ \ominus
+⊘ \oslash 
+∐ \amalg
+∅ \varnothing
+¶ \P
+§ \S
+© \copyright
+£ \pounds

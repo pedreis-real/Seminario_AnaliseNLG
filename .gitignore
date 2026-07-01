@@ -1,0 +1,22 @@
+# Latex temporary files
+*.aux
+*.fdb_latexmk
+*.glo
+*.gls
+*.out
+*.ist
+*.fls
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+
+# Backup files
+*.bak
+
+# Log files
+*.log
+
+# Bulk data for copy and paste
+copypasta.txt
