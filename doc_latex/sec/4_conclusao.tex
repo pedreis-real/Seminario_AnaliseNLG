@@ -9,7 +9,15 @@
 \section{CONSIDERAÇÕES FINAIS}
 \label{sec:conclusao}
 
+O presente trabalho cumpriu o objetivo de investigar o comportamento não-linear geométrico de treliças espaciais rasas, com ênfase na identificação e transposição de pontos críticos de instabilidade (\textit{snap-through} e \textit{snap-back}). A motivação central para este estudo foi a aplicação dessas estruturas em mastros de sustentação para velas solares, operando em ambientes espaciais severos, como o da missão BepiColombo em órbita mercuriana.
 
+A partir da revisão do estado da arte e da implementação computacional, constatou-se que métodos tradicionais de incremento monotônico, como o de Newton-Raphson, são insuficientes para traçar trajetórias de equilíbrio complexas. O Método de Controle de Deslocamento Generalizado (GDC) demonstrou ser a ferramenta analítica mais robusta para este fim. Sua capacidade de identificar automaticamente a proximidade de pontos críticos e reverter o sentido de avanço da análise — baseando-se apenas na variação de sinal do Parâmetro de Rigidez Generalizada (GSP) — elimina a necessidade de intervenção externa ou de ajustes finos, tornando-o ideal para simular o comportamento de estruturas sujeitas a carregamentos de magnitude e sentido imprevisíveis, como as rajadas de vento solar.
+
+A análise do dimensionamento ótimo sob restrição de estabilidade, baseada na uniformização da Densidade de Energia de Deformação (SED), corroborou a premissa de que treliças otimizadas para mínimo peso tornam-se altamente esbeltas e, consequentemente, extremamente suscetíveis à instabilidade geométrica prematura. O exemplo numérico da treliça piramidal de quatro barras com dupla simetria ilustrou de forma clara esse fenômeno: o colapso estrutural (ponto-limite) ocorre em níveis de tensão muito inferiores ao limite de escoamento do material (liga de alumínio aeroespacial), provando que a falha geométrica governa o projeto.
+
+Além disso, a formulação analítica do modelo com dupla simetria revelou que a condição de ótimo (SED uniforme) é satisfeita identicamente por construção. Isso reduziu drasticamente o custo computacional do dimensionamento, permitindo que a convergência da área da seção transversal ocorresse em uma única iteração, contrastando com as múltiplas iterações exigidas em geometrias assimétricas.
+
+Por fim, conclui-se que o rastreamento rigoroso da trajetória de equilíbrio não-linear é uma etapa indispensável no processo de certificação estrutural de missões espaciais. Em cenários operacionais reais, onde a radiação solar intensa e impulsiva impõe carregamentos dinâmicos aleatórios, dimensionar a estrutura estritamente no limite da carga crítica representa um risco inaceitável. O projeto seguro de velas solares exige, portanto, a adoção de margens de segurança adequadas e o emprego contínuo de formulações numéricas autoadaptáveis, como o GDC, para prever e mitigar os efeitos catastróficos do \textit{snap-through}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
