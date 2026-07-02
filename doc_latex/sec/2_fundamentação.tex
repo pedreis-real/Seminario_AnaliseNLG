@@ -9,3 +9,320 @@
 \section{FUNDAMENTAÇÃO TEÓRIA}
 \label{sec:fundamentação}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   2.1 Métodos de análise não-linear incremental  %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Métodos de análise não-linear incremental-iterativa}
+\label{subsec:métodos}
+
+A obtenção da trajetória de equilíbrio carga-deslocamento de um
+sistema estrutural NLG requer a solução de um sistema de equações
+algébricas não-lineares, o que é feito por meio de processos
+incrementais-iterativos. Três métodos são tratados neste trabalho,
+em ordem crescente de robustez frente a pontos críticos. Em todos
+eles, o ponto de partida é o equilíbrio estático entre as forças
+internas e as forças externas aplicadas, escrito na forma
+residual
+
+\begin{equation}
+  \mathbf{g}(\mathbf{u}, \lambda) =
+  \mathbf{F}_{\text{int}}(\mathbf{u}) - \lambda\,\mathbf{F}_{\text{ref}}
+  = \mathbf{0},
+  \label{eq:equilibrio}
+\end{equation}
+
+em que $\mathbf{u}$ é o vetor de deslocamentos nodais,
+$\mathbf{F}_{\text{int}}(\mathbf{u})$ é o vetor de forças internas,
+função não-linear da configuração deformada, $\mathbf{F}_{\text{ref}}$
+é um vetor de referência que define a distribuição espacial do
+carregamento e $\lambda$ é o parâmetro (ou fator) de carga, que
+escalona essa distribuição ao longo da análise.
+
+O método de \textbf{Newton-Raphson} resolve, a cada iteração, uma
+versão linearizada da Equação \ref{eq:equilibrio} em torno da
+configuração corrente, a partir da matriz de rigidez tangente
+
+\begin{equation}
+  \mathbf{K}_T(\mathbf{u}) =
+  \frac{\partial \mathbf{F}_{\text{int}}}{\partial \mathbf{u}},
+  \label{eq:rigidez-tangente}
+\end{equation}
+
+de modo que, para um valor fixo de $\lambda$, o incremento
+iterativo de deslocamento $\Delta\mathbf{u}^{(i)}$, na iteração
+$i$, é obtido de
+
+\begin{equation}
+  \mathbf{K}_T^{(i)}\, \Delta\mathbf{u}^{(i)} =
+  -\,\mathbf{g}\!\left(\mathbf{u}^{(i)}, \lambda\right),
+  \qquad
+  \mathbf{u}^{(i+1)} = \mathbf{u}^{(i)} + \Delta\mathbf{u}^{(i)}.
+  \label{eq:newton-raphson}
+\end{equation}
+
+A convergência da Equação \ref{eq:newton-raphson} é quadrática nas
+proximidades da solução, porém o incremento de carga $\Delta\lambda$
+é prescrito e mantido monotônico ao longo de toda a análise. Como
+$\mathbf{K}_T$ torna-se singular, isto é,
+$\det(\mathbf{K}_T) = 0$, exatamente em um ponto-limite da
+trajetória de equilíbrio, a Equação \ref{eq:newton-raphson} deixa
+de ter solução única nessa vizinhança, tornando o método incapaz,
+isoladamente, de ultrapassar um ponto de máximo ou de mínimo da
+curva carga-deslocamento.
+
+O método do \textbf{comprimento de arco}, proposto por
+\citealp{riks1979} e posteriormente tornado computacionalmente
+eficiente por \citealp{crisfield1981}, contorna essa limitação ao
+tratar o parâmetro de carga como uma incógnita adicional do
+sistema, decompondo o incremento iterativo de deslocamento em uma
+parcela tangencial e em uma parcela residual,
+
+\begin{equation}
+  \Delta\mathbf{u}^{(i)} = \Delta\lambda^{(i)}\,
+  \delta\mathbf{u}_t^{(i)} + \delta\mathbf{u}_r^{(i)},
+  \qquad
+  \delta\mathbf{u}_t^{(i)} =
+  \left[\mathbf{K}_T^{(i)}\right]^{-1} \mathbf{F}_{\text{ref}},
+  \qquad
+  \delta\mathbf{u}_r^{(i)} =
+  -\left[\mathbf{K}_T^{(i)}\right]^{-1}
+  \mathbf{g}^{(i)},
+  \label{eq:arco-decomposicao}
+\end{equation}
+
+em que $\delta\mathbf{u}_t^{(i)}$ é o deslocamento tangencial
+devido a um carregamento unitário de referência e
+$\delta\mathbf{u}_r^{(i)}$ é o deslocamento associado à correção do
+resíduo. O sistema é fechado por uma equação de restrição
+adicional, que fixa a distância percorrida no espaço
+carga-deslocamento a cada passo incremental em um raio prescrito
+$\Delta l$,
+
+\begin{equation}
+  \left(\Delta\mathbf{u}^{(i)}\right)^{\!T} \Delta\mathbf{u}^{(i)}
+  + \psi^2 \left(\Delta\lambda^{(i)}\right)^{\!2}
+  \mathbf{F}_{\text{ref}}^{T} \mathbf{F}_{\text{ref}} = \Delta l^2,
+  \label{eq:arco-restricao}
+\end{equation}
+
+em que $\psi$ é um parâmetro de escala entre as parcelas de
+deslocamento e de carga, frequentemente adotado nulo na formulação
+cilíndrica de \citealp{crisfield1981}. Substituindo a Equação
+\ref{eq:arco-decomposicao} na Equação \ref{eq:arco-restricao},
+obtém-se uma equação quadrática em $\Delta\lambda^{(i)}$, cujas
+raízes determinam o incremento de carga compatível com o raio
+$\Delta l$ em cada iteração. Como $\Delta\lambda^{(i)}$ deixa de
+ser prescrito, a trajetória de equilíbrio pode avançar mesmo
+quando $\mathbf{K}_T$ se anula, acompanhando pontos-limite de
+carga. A principal limitação do método aparece em trajetórias com
+\textit{snap-back}, nas quais tanto a carga quanto o deslocamento
+podem inverter de sentido, exigindo critérios adicionais para a
+escolha correta da raiz da Equação \ref{eq:arco-restricao} e do
+sentido de avanço da análise.
+
+O \textbf{Método de Controle de Deslocamento Generalizado} (GDC),
+formulado por \citealp{yang_shieh1990}, generaliza a ideia do
+comprimento de arco ao substituir a equação de restrição
+geométrica, Equação \ref{eq:arco-restricao}, por um critério
+baseado unicamente na variação da rigidez da estrutura. Define-se o
+\textbf{parâmetro de rigidez generalizada} (GSP), na iteração $i$
+de um dado incremento de carga, como a razão
+
+\begin{equation}
+  \text{GSP}^{(i)} =
+  \dfrac{
+  \left(\delta\mathbf{u}_t^{(1)}\right)^{\!T} \delta\mathbf{u}_t^{(1)}
+  }{
+  \left(\delta\mathbf{u}_t^{(i)}\right)^{\!T} \delta\mathbf{u}_t^{(i)}
+  },
+  \label{eq:gsp}
+\end{equation}
+
+em que $\delta\mathbf{u}_t^{(1)}$ é o deslocamento tangencial
+obtido na primeira iteração do primeiro incremento de toda a
+análise, tomado como referência, e $\delta\mathbf{u}_t^{(i)}$ é o
+deslocamento tangencial da iteração corrente, ambos calculados
+como na Equação \ref{eq:arco-decomposicao}. O parâmetro de carga
+correspondente à primeira iteração de cada novo incremento é então
+obtido de
+
+\begin{equation}
+  \Delta\lambda_1^{(i)} = \pm\, \Delta\lambda_1^{(1)}\,
+  \sqrt{\left|\text{GSP}^{(i)}\right|},
+  \label{eq:gdc-lambda}
+\end{equation}
+
+em que $\Delta\lambda_1^{(1)}$ é o incremento de carga adotado no
+início da análise e o sinal em \eqref{eq:gdc-lambda} acompanha o
+sinal de $\text{GSP}^{(i)}$. Enquanto a estrutura se mantém no
+mesmo ramo estável da trajetória de equilíbrio, o GSP permanece
+positivo, diminuindo à medida que a estrutura perde rigidez
+(amolecimento) e crescendo quando ela a recupera (enrijecimento);
+ao ultrapassar um ponto-limite, contudo, o GSP muda de sinal, o que
+inverte automaticamente o sentido de $\Delta\lambda_1^{(i)}$ na
+Equação \ref{eq:gdc-lambda}, sem necessidade de intervenção
+externa. Essa característica torna o GDC especialmente eficaz para
+trajetórias com múltiplos pontos-limite e pontos de
+\textit{snap-back} consecutivos, como as observadas na treliça de
+von Mises sob determinadas condições de carregamento, sendo por
+isso o método adotado como ferramenta principal de análise neste
+trabalho.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   2.2 Velas solares: modelagem e perturbações    %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Velas solares: modelagem e perturbações}
+\label{subsec:velas-solares}
+
+Uma vela solar converte o momento linear transportado pelos fótons
+solares em força de empuxo no instante em que estes são refletidos
+por uma membrana fina e de grande área, dispensando o consumo de
+propelente ao longo da missão \cite{silva2020}. Estruturalmente, a
+membrana é sustentada e mantida esticada por mastros e treliças
+dobráveis, projetados para reduzir ao máximo a massa embarcada, a
+exemplo da vela solar mostrada na \autoref{fig:vela}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Exemplo de vela solar.}
+    \includegraphics[width=0.6\linewidth]{figuras/2_fundamentacao/vela2.png}
+    % \caption*{Fonte: \citealp{planeta2019lightsail2}}
+    \label{fig:vela}
+\end{figure}
+
+Propostas de
+arquiteturas reticuladas compostas por elementos biestáveis, capazes
+de assumir múltiplas configurações estáveis com o mínimo de atuação
+externa, reforçam essa lógica de estruturas leves e dobráveis
+aplicadas a sistemas espaciais \cite{schioler_pellegrino2007}.
+
+A modelagem do carregamento sobre esse tipo de estrutura considera a
+PRS como a principal força motriz, cuja magnitude depende da
+distância ao Sol, do ângulo de incidência e das propriedades
+ópticas da membrana. Para uma membrana idealizada como refletora
+especular perfeita, a força resultante da PRS sobre a vela é
+comumente expressa em função da irradiância solar incidente
+\cite{silva2020},
+
+\begin{equation}
+  \mathbf{F}_{\text{PRS}} =
+  \dfrac{2\, S(r)\, A \cos^2\theta}{c}\, \hat{\mathbf{n}},
+  \qquad
+  S(r) = S_0 \left(\frac{r_0}{r}\right)^{\!2},
+  \label{eq:prs}
+\end{equation}
+
+em que $A$ é a área da membrana, $\theta$ é o ângulo entre a
+direção de incidência solar e a normal $\hat{\mathbf{n}}$ à
+superfície, $c$ é a velocidade da luz, $S(r)$ é a irradiância solar
+na distância heliocêntrica $r$ e $S_0 = 1.361$ W/m$^2$ é a irradiância solar medida na distância de referência $r_0 = 1\,$UA, conhecida como "constante solar". A dependência de
+$S(r)$ com o inverso do quadrado de $r$ na Equação \ref{eq:prs}
+explica, de forma quantitativa, por que a magnitude do
+carregamento transmitido à treliça de sustentação se intensifica
+substancialmente em órbitas próximas ao Sol, aspecto retomado na
+Seção \ref{sec:discussões}. Contudo, a trajetória orbital de um satélite
+propulsionado por vela solar também é afetada por forças
+perturbadoras adicionais, como a distribuição não uniforme de massa
+do corpo central orbitado e a perturbação gravitacional de terceiro
+corpo, no caso o próprio Sol \cite{silva2020}. Do ponto de vista
+estrutural, essas perturbações se traduzem em variações de
+magnitude e de direção do carregamento transmitido pela membrana à
+treliça de sustentação, o que justifica tratar esse carregamento
+como uma grandeza variável, e não como uma carga estática de
+projeto, ao analisar a estabilidade da estrutura reticulada.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%   2.3 Otimização baseada em densidade de energia %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\subsection{Otimização de treliças com restrição de estabilidade
+via densidade de energia de deformação}
+\label{subsec:sed}
+ 
+Além de traçar a trajetória de equilíbrio de uma configuração já
+definida, os métodos incremental-iterativos da Seção
+\ref{subsec:métodos} também podem ser incorporados a um
+procedimento de \textbf{dimensionamento} da estrutura. Segundo a
+metodologia proposta por \citealp{hrinda_nguyen2008}, o
+dimensionamento de peso mínimo de uma treliça esbelta sujeita a
+\textit{snap-through} é obtido impondo que a carga crítica de
+instabilidade, identificada ao longo da trajetória de equilíbrio
+pelo método do comprimento de arco (ou, de forma equivalente pelo
+GDC), coincida com a carga de projeto, e que a energia de
+deformação armazenada nessa condição esteja distribuída de forma
+uniforme entre todas as barras da estrutura.
+ 
+O ponto de partida é a energia de deformação elástica de cada
+barra $i$, obtida a partir da deformação de Green $\varepsilon_i$
+já empregada na Equação \ref{eq:arco-decomposicao},
+ 
+\begin{equation}
+  SE_i = \tfrac{1}{2}\, E\, \varepsilon_i^2\, A_i\, L_{0i},
+  \label{eq:se}
+\end{equation}
+ 
+em que $A_i$ e $L_{0i}$ são, respectivamente, a área da seção
+transversal e o comprimento original da barra $i$. A
+\textbf{densidade de energia de deformação} (SED) é obtida
+dividindo-se $SE_i$ pela massa da barra, de modo a relacionar
+diretamente a energia armazenada ao peso da estrutura
+\cite{hrinda_nguyen2008},
+ 
+\begin{equation}
+  SED_i = \dfrac{SE_i}{\rho_i\, A_i\, L_{0i}}
+        = \dfrac{E\, \varepsilon_i^2}{2\, \rho_i},
+  \label{eq:sed}
+\end{equation}
+ 
+em que $\rho_i$ é a massa específica do material da barra $i$. O
+problema de otimização consiste em minimizar o peso total da
+treliça,
+ 
+\begin{equation}
+  W = \sum_{i=1}^{n} \rho_i A_i L_i,
+  \label{eq:peso}
+\end{equation}
+ 
+com $L_i$ o comprimento deformado da barra $i$, sujeito à restrição
+de igualdade de que a energia potencial total do sistema, na
+configuração de projeto, coincida com um valor-alvo $\Pi^{*}$
+associado à carga crítica de instabilidade. Formando o Lagrangiano
+dessa minimização com restrição e impondo estacionariedade em
+relação a cada $A_i$, \citealp{hrinda_nguyen2008} mostram que a
+condição de ótimo é alcançada quando a SED se torna \textbf{igual
+em todas as barras} da estrutura, o que caracteriza um
+aproveitamento uniforme do material sob a carga crítica. Essa
+condição é expressa por um multiplicador de Lagrange
+ 
+\begin{equation}
+  \gamma = \dfrac{\sum_{i=1}^{n} SED_i}{\sum_{i=1}^{n} SED_i^2},
+  \label{eq:lagrange}
+\end{equation}
+ 
+que é incorporado a uma fórmula de recorrência exponencial
+utilizada para atualizar a área de cada barra ao final de cada
+passo convergido do comprimento de arco (ou do GDC),
+ 
+\begin{equation}
+  A_i^{(k+1)} = A_i^{(k)}
+  \left[\gamma^{(k)}\, SED_i^{(k)}\right]^{\mu^{(k)}},
+  \label{eq:recorrencia}
+\end{equation}
+ 
+em que o expoente $\mu^{(k)}$, denominado por
+\citealp{hrinda_nguyen2008} \textit{scale strain parameter}, é
+calculado a partir do multiplicador de carga incremental do passo
+$k$ do comprimento de arco e regula tanto a velocidade de
+convergência do processo quanto a proximidade entre a carga
+alcançada e a carga-alvo de projeto. A Equação
+\ref{eq:recorrencia} é aplicada repetidamente até que a diferença
+entre as $SED_i$ de todas as barras fique abaixo de uma tolerância
+especificada pelo usuário, momento em que o dimensionamento é
+considerado ótimo: a estrutura suporta a carga de projeto com o
+menor peso possível, posicionada exatamente no limiar da
+instabilidade por \textit{snap-through}. Um exemplo numérico de
+aplicação dessa metodologia, particularizado para uma treliça com
+dupla simetria, é apresentado na Seção \ref{subsec:exemplo-sed}.

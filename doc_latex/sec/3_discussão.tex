@@ -9,3 +9,189 @@
 \section{DISCUSSÕES ACERCA DO TEMA}
 \label{sec:discussões}
 
+\subsection{Estado da Arte}
+
+O trabalho de \citet{hrinda_nguyen2008} estabelece a base numérica para a análise de trajetórias de equilíbrio em treliças tridimensionais geometricamente não-lineares, com ênfase na capacidade do método do comprimento de arco de Riks--Wempner de atravessar pontos críticos de limite e de contro e ao longo da trajetória de equilíbrio. O autor implementa um programa de elementos finitos próprio para treliças 3D com elemento de barra não-linear baseado na medida de deformação de Green e na rigidez tangente composta pelas parcelas elástica e geométrica. Os resultados foram verificados contra soluções analíticas de Crisfield e contra o solver não-linear do NASTRAN. Os exemplos de referência incluem o problema de um grau de liberdade da NAFEMS, a cúpula estelar (\textit{star dome}) de Crisfield com 24 elementos e a treliça arco circular com 101 elementos, sendo que este último exibe múltiplos eventos de \textit{snap-through} e \textit{snap-back} em sequência, com a trajetória de equilíbrio descrevendo um padrão de oito no espaço carga--deslocamento. O estudo demonstra que o método de Newton--Raphson convencional falha nesse regime, produzindo saltos artificiais ou não convergindo. Já o método do comprimento de arco rastreia a trajetória completa com boa concordância numérica, estabelecendo assim a viabilidade do procedimento para estruturas espaciais altamente flexíveis sujeitas a colapso progressivo.
+
+Dando continuidade à linha de pesquisa anterior com foco na identificação de padrões de instabilidade em projeto, \citet{Hrinda2010} investiga cinco geometrias distintas de treliças rasas: 
+
+\begin{itemize}
+    \item treliça assimétrica de quatro membros;
+    \item treliça simétrica de oito membros tipo roda de raios;
+    \item a cúpula de dezesseis membros análoga ao star dome de Crisfield;
+    \item uma A-treliça simétrica;
+    \item e a treliça arco circular.
+\end{itemize}
+
+\noindent O objetivo foi caracterizar a variedade de trajetórias de equilíbrio que podem surgir antes mesmo do limite de bifurcação de projeto. O resultado central do trabalho é a observação de que treliças rasas perdem a capacidade de suportar carga em níveis muito inferiores à carga crítica predita por uma análise de autovalor linear. Para a treliça de oito membros, por exemplo, a carga limite de \textit{snap-through} é de apenas 78{,}3\,lb contra uma carga nominal de projeto de 1000\,lb, diferença de uma ordem de grandeza que uma análise \textit{eigenvalue} convencional no NASTRAN não detecta. O trabalho classifica os padrões de trajetória de equilíbrio observados em três morfologias: curva em S invertido (\textit{snap-through} simples), figura de oito e pétala de flor (ambas associadas a \textit{snap-back}). As imperfeições de fabricação ou montagem em grandes treliças espaciais, como as empregadas em plataformas de satélite de energia solar ou em suportes de antenas de micro-ondas, podem deslocar a carga crítica real ainda mais para baixo, tornando o rastreamento da trajetória de equilíbrio não-linear uma etapa indispensável do processo de certificação estrutural.
+
+Estendendo a abordagem anterior para o domínio de projeto de mínimo peso, \citet{hrinda_nguyen2008} formulam um método de otimização de treliças rasas geometricamente não-lineares com restrição de estabilidade, no qual o snap-through deixa de ser apenas um fenômeno a caracterizar e passa a ser tratado como restrição de projeto ativa: a carga de projeto é posicionada imediatamente abaixo da carga crítica de \textit{snap-through}, e as seções transversais dos membros são atualizadas iterativamente por meio de uma relação de recorrência baseada na uniformização da densidade de energia de deformação (\textit{strain energy density}, SED) entre todos os elementos. O multiplicador de Lagrange que controla a recorrência é derivado analiticamente a partir do critério de mínimo peso sujeito a uma restrição de igualdade sobre a energia potencial total, sendo calculado em cada iteração do método do comprimento de arco como função da SED acumulada. Os cinco exemplos de verificação --- treliças simétricas e assimétricas de dois e quatro membros, \textit{star dome} de trinta membros e treliça rasa de vinte e três membros --- mostram que a metodologia é capaz de encontrar o projeto de mínimo peso que maximiza a carga suportada sem \textit{snap-through}. A relevância para estruturas de suporte em sistemas espaciais reside no fato de que treliças mais esbeltas e leves, ao tornarem-se mais flexíveis, ficam mais suscetíveis a instabilidades de ponto limite, de modo que ignorar essa restrição no processo de otimização pode conduzir a projetos que falham antes de atingir a carga de serviço.
+
+Para a construção dos exemplos numéricos deste trabalho, foi implementada a metodologia de análise e construção das curvas de deslocamento em função do incremento de carga discutidas em \cite{hrinda_nguyen2008}, por comprimento de arco de Riks, e o método de Controle de Deslocamento Generalizado (GDC), proposto por \cite{yang_shieh1990}, sendo este último utilizado como método de análise final dos exemplo numérico criado. Para assegurar a coerência e funcionamento do código implementado, foram geradas as curvas mostradas na Fig. 6 e Fig. 15 do artigo de \cite{hrinda_nguyen2008}, agora solucionadas pelo GDC, e um comparativo entre os dois métodos de construção de curvas paramétricas para análises não-linear geométricas de estruturas com múltiplos pontos críticos. Todas essas figuras estão mostradas abaixo:
+
+\begin{figure}[H]
+    \centering
+    \caption{Comparação numérica entre os métodos de análise.}
+    \includegraphics[width=0.5\linewidth]{figuras/3_discussões/comparação_Hrinda_GDC.pdf}
+    \label{fig:comparação_Hrinda_GDC}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Fig. 6 do artigo de referência.}
+    \includegraphics[width=0.5\linewidth]{figuras/3_discussões/fig6_Hrinda.pdf}
+    \label{fig:fig6_Hrinda}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Fig. 15 do artigo de referência.}
+    \includegraphics[width=0.5\linewidth]{figuras/3_discussões/fig15_Hrinda.pdf}
+    \label{fig:fig15_Hrinda}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  3.1 Órbita terrestre x órbita próxima ao Sol (BepiColombo)  %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Órbita terrestre versus órbita próxima ao Sol: a missão BepiColombo}
+\label{subsec:bepicolombo}
+
+A intensidade do carregamento ao qual uma vela solar está exposta não é a mesma em toda e qualquer órbita. Por depender do inverso do quadrado da distância ao Sol, a pressão de radiação solar cresce substancialmente à medida que o satélite se aproxima do centro do Sistema Solar, de modo que uma estrutura projetada para operar em órbita terrestre estaria sujeita, em órbita mercuriana, a um carregamento médio consideravelmente mais intenso e a gradientes térmicos muito mais severos \cite{silva2020}. É esse cenário que caracteriza a missão BepiColombo, empreendimento conjunto da Agência Espacial Europeia (ESA) e da Agência Japonesa de Exploração Aeroespacial (JAXA), lançado em 20 de outubro de 2018 e inserido em órbita ao redor de Mercúrio em dezembro de 2025 \cite{nasa_bepicolombo2025}, e que serve neste trabalho como referência de missão operando em ambiente de radiação solar intensa.
+
+Em órbita terrestre, a pressão de radiação solar incidente sobre uma vela solar varia de forma relativamente suave ao longo da órbita, o que permite tratá-la, para fins de projeto estrutural, como um carregamento quase estático, cujos limites superior e inferior são conhecidos com razoável antecedência. Já em órbitas próximas ao Sol, como as percorridas por uma futura vela solar rumo a Mercúrio, o ambiente espacial soma à radiação eletromagnética um vento solar mais denso e mais variável, sujeito a rajadas impulsivas associadas a ejeções de massa coronal e outras perturbações do plasma solar.
+
+Esse é o \textbf{ponto-chave} desta discussão: a imprevisibilidade dessas rajadas impede que se conheça o instante, a intensidade e o sentido do carregamento adicional que irá incidir sobre a treliça de sustentação da vela, de modo que a estrutura pode ser solicitada de forma impulsiva, em direções que não seguem necessariamente o histórico de carregamento quase estático assumido em projeto. Sob essas condições, a proximidade de um ponto-limite de carga deixa de ser um risco associado apenas a manobras planejadas e passa a depender também de um evento espacial de origem essencialmente aleatória, o que eleva a probabilidade de ocorrência de um \textit{snap-through} dinâmico não previsto na trajetória de projeto da estrutura.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  3.2 Integração entre fundamentação e método principal     %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Integração entre a fundamentação teórica e o método principal de análise}
+\label{subsec:integração}
+
+A discussão apresentada na Seção \ref{subsec:bepicolombo} evidencia por que, dentre os métodos revisados na Seção \ref{subsec:métodos}, o Método de Controle de Deslocamento Generalizado é adotado como ferramenta principal de análise deste trabalho. O método de Newton-Raphson, por depender de um incremento de carga monotônico, sequer é capaz de acompanhar a estrutura além de um único ponto-limite, o que torna-o inadequado para representar um carregamento cuja direção pode se inverter de forma abrupta e imprevisível, como discutido para o caso de rajadas do vento solar. O método do comprimento de arco, embora ultrapasse pontos-limite de carga, exige critérios adicionais para lidar corretamente com inversões de sentido em trajetórias de \textit{snap-back}, o que introduz uma dependência de ajuste fino que não se coaduna com um carregamento cuja variabilidade não é conhecida de antemão.
+
+O GDC, por sua vez, identifica automaticamente a proximidade de um ponto crítico a partir da variação de sinal do parâmetro de rigidez generalizada, invertendo o sentido de avanço da análise sem exigir intervenção externa. Essa autoadaptabilidade permite representar, dentro de uma única formulação numérica, tanto pontos-limite de carga quanto pontos de \textit{snap-back} sucessivos, exatamente o tipo de trajetória de equilíbrio esperado para a treliça de von Mises quando submetida a um carregamento variável em magnitude e sentido, como o transmitido por uma vela solar operando em órbita mercuriana.
+
+A integração proposta neste trabalho consiste, portanto, em idealizar o mastro de sustentação da vela solar como uma treliça de von Mises, atribuir a ela um carregamento representativo da variabilidade da PRS e das rajadas do vento solar discutida na Seção \ref{subsec:bepicolombo}, e empregar o GDC para traçar de forma robusta a trajetória de equilíbrio resultante, permitindo identificar as margens de estabilidade da estrutura frente a esse ambiente de operação mais severo do que o de uma órbita terrestre convencional.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%  3.3 Exemplo numérico: treliça de quatro barras            %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\subsection{Exemplo numérico: treliça piramidal de quatro barras com dupla simetria}
+\label{subsec:exemplo-sed}
+ 
+Para ilustrar de forma concreta a integração entre os métodos numéricos e as análises propostas, esta seção apresenta um exemplo numérico inspirado na treliça assimétrica de quatro barras estudada por \citealp{hrinda_nguyen2008}, porém reconfigurada com \textbf{dupla simetria}: os quatro nós de apoio são posicionados nos vértices de uma base quadrada, nas coordenadas $(\pm a, \pm a, 0)$, e conectados a um único nó central de aplicação de carga, inicialmente na posição $(0,0,h_0)$. Essa configuração piramidal é simétrica em relação aos planos $xz$ e $yz$ e constitui uma generalização espacial da treliça de von Mises para quatro barras, geometria compatível com a base de sustentação de um mastro de vela solar apoiado em quatro pontos. A \autoref{fig:truss_4bar} identifica o sistema estrutural do trabalho.
+
+\begin{figure}[H]
+    \centering
+    \caption{Treliça piramidal de quatro barras com dupla simetria.}
+    \includegraphics[
+        trim = 2mm 2mm 2mm 2mm,
+        clip,
+        width=\linewidth
+    ]{figuras/3_discussões/truss_4bar.pdf}
+    \label{fig:truss_4bar}
+\end{figure}
+
+
+\subsubsection{Carregamento atuante}
+
+Para fins de análise, considerou-se $r = 0,307$ UA, equivalente ao raio médio da órbita de Mercúrio, o que produz, pela \autoref{eq:prs}, uma força na vela quadrada de lado $2a = 4000$ mm equivalente a:
+
+$$F_\textbf{PRS} = 0,001541\:\:\text{N}$$
+
+Um valor bem baixo para capturar os efeitos. Isso já indica que, em missões reais, o efeito do snap-through dinâmico não será alcançado. Continuemos nossas análises aplicando um fator de escala de 10.000 na carga, pois, para mera representação dos conceitos da análise não-linear geométrica discutida neste trabalho.
+
+ 
+\subsubsection{Redução a um único grau de liberdade}
+ 
+Sob uma carga vertical $P$ aplicada no nó central, a dupla simetria da geometria garante que o nó central se desloca apenas na direção vertical, isto é, $\mathbf{u} = (0,0,-w)$, com $w>0$ medido para baixo. As quatro barras permanecem, em qualquer instante da análise, com o mesmo comprimento corrente
+ 
+\begin{equation}
+  L(w) = \sqrt{2a^2 + (h_0 - w)^2},
+  \qquad
+  L_0 = L(0) = \sqrt{2a^2 + h_0^2},
+  \label{eq:L-piramide}
+\end{equation}
+ 
+o que implica que a deformação de Green $\varepsilon(w)$ é \textbf{idêntica nas quatro barras em qualquer configuração} $w$.
+ 
+Com $h = h_0 - w$, a deformação de cada barra é $\varepsilon(h) = (h^2 - h_0^2)/(2L_0^2)$ e o equilíbrio vertical do nó central fornece a força interna do sistema reduzido a um grau de liberdade,
+ 
+\begin{equation}
+  \dfrac{P_{\text{int}}(h)}{A} =
+  \dfrac{2E}{L_0^3}\, h\left(h_0^2 - h^2\right),
+  \label{eq:P-piramide}
+\end{equation}
+ 
+em que $A$ é a área da seção transversal, igual nas quatro barras por simetria. A rigidez tangente escalar desse sistema reduzido é
+ 
+\begin{equation}
+  K_T(h) = -\dfrac{dP_{\text{int}}}{dw} =
+  \dfrac{2EA}{L_0^3}\left(3h^2 - h_0^2\right).
+  \label{eq:KT-piramide}
+\end{equation}
+ 
+O ponto-limite da trajetória de equilíbrio ocorre exatamente quando $K_T(h)=0$, isto é, em
+ 
+\begin{equation}
+  h_{\text{cr}} = \dfrac{h_0}{\sqrt{3}},
+  \qquad
+  w_{\text{cr}} = h_0 - h_{\text{cr}} = h_0\!\left(1 -
+  \dfrac{1}{\sqrt{3}}\right).
+  \label{eq:hcr}
+\end{equation}
+ 
+Substituindo a Equação \ref{eq:hcr} na Equação \ref{eq:P-piramide}, obtém-se a carga crítica de instabilidade em forma fechada,
+ 
+\begin{equation}
+  \dfrac{P_{\text{cr}}}{A} =
+  \dfrac{4\sqrt{3}}{9}\, \dfrac{E\, h_0^3}{L_0^3}.
+  \label{eq:Pcr-piramide}
+\end{equation}
+ 
+\subsubsection{Parâmetros do Modelo e Análise Dinâmica}
+ 
+Adotando os parâmetros geométricos e de material implementados computacionalmente e listados na Tabela \ref{tab:parametros} -- valores compatíveis com liga de alumínio no Sistema Internacional --, a Equação \ref{eq:L-piramide} resulta num comprimento inicial de $L_0 \approx 2828{,}87\,$mm. A Equação \ref{eq:hcr} fornece os deslocamentos críticos $h_{\text{cr}} \approx 28{,}87\,$mm e $w_{\text{cr}} \approx 21{,}13\,$mm. Já a Equação \ref{eq:Pcr-piramide} fornece a tensão no limite de instabilidade de $P_{\text{cr}}/A \approx 297{,}53\,$MPa, resultando em uma carga crítica teórica $P_{\text{cr}} \approx 14{,}88\,$kN para a área estipulada.
+
+\begin{table}[H]
+\centering
+\caption{Parâmetros computacionais da treliça piramidal.}
+\label{tab:parametros}
+\begin{tabular}{lcc}
+\toprule
+Grandeza & Símbolo & Valor \\
+\midrule
+Meia-largura da base       & $a$      & $2000\,$mm \\
+Altura inicial do apoio central & $h_0$    & $50\,$mm \\
+Módulo de elasticidade (Alumínio) & $E$ & $70000\,$MPa \\
+Massa específica            & $\rho$   & $2{,}7 \times 10^{-9}\,$ton/mm$^3$ \\
+Área da seção transversal   & $A_{\text{opt}}$ & $50\,$mm$^2$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A imprevisibilidade das rajadas do vento solar sobre a vela (discutida na Seção \ref{subsec:bepicolombo}) requer uma análise dinâmica além do dimensionamento estático. Para avaliar esse efeito, a estrutura foi analisada considerando a Força de Pressão de Radiação Solar (PRS). Como a magnitude base da PRS para essa área é irrisória em relação à rigidez da treliça ($\sim 0{,}0001\,$N), aplicou-se um fator de escala puramente demonstrativo de $600.000$ à força, induzindo intencionalmente a instabilidade.
+
+Através de um método de integração de Runge-Kutta de 4ª ordem (RK4), monitorou-se o fenômeno de \textit{snap-through} em dois regimes: um degrau (\textit{step}), simulando uma rajada violenta e repentina, e uma rampa (\textit{ramp}), simulando um aumento de carga mais brando, como em uma manobra lenta de controle de altitude. As respostas no tempo são mostradas na \autoref{fig:dinamica}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Resposta dinâmica da treliça -- nó central.}
+    \includegraphics[width=0.65\linewidth]{figuras/3_discussões/dinamica.pdf}
+    \label{fig:dinamica}
+\end{figure}
+
+A análise evidencia que a aplicação impulsiva da carga leva ao colapso geométrico prematuro. Além disso, análises paramétricas variando a altura do ápice $h_0$ de $20\,$mm a $80\,$mm demonstram que a resistência da estrutura treliçada simplesmente escala com este parâmetro de projeto, como evidencia a \autoref{fig:influencia_h0}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Influência da altura inicial $h_0$ do nó central do mastro na curva de deslocamento vertical por passo incremental de carga.}
+    \includegraphics[width=0.75\linewidth]{figuras/3_discussões/influencia_h0.pdf}
+    \label{fig:influencia_h0}
+\end{figure}

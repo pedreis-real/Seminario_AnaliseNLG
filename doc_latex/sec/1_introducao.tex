@@ -9,7 +9,64 @@
 \section{INTRODUÇÃO}
 \label{sec:intro}
 
+A Análise Não-Linear Geométrica (NLG) de estruturas reticuladas
+consiste em formular o equilíbrio mecânico sobre a configuração
+deformada do sistema, em contraposição à hipótese de pequenos
+deslocamentos adotada pela teoria linear clássica. Os efeitos de
+não-linearidade geométrica também podem ser observados em sistemas estruturais que sofrem plastificação e danos de segunda ordem, como
+imperfeições do material, ou por contato entre dois corpos.
 
+Essa abordagem
+torna-se indispensável sempre que a estrutura é capaz de sofrer
+grandes deslocamentos e rotações mantendo pequenas deformações
+específicas, situação recorrente em treliças esbeltas, cascas
+abatidas e sistemas espaciais leves. Nesses casos, a relação entre
+carga e deslocamento deixa de ser proporcional e passa a exibir
+fenômenos como pontos-limite, bifurcações e o chamado
+\textit{snap-through}: uma mudança brusca e instável de
+configuração de equilíbrio, na qual a estrutura "salta" de um
+ramo estável da trajetória carga-deslocamento para outro sem que
+a carga externa precise crescer.
+
+Um dos modelos mais utilizados para o estudo desse comportamento é
+a treliça de von Mises, um sistema reticulado abatido composto por
+poucas barras, cuja simplicidade geométrica não impede que sua
+trajetória de equilíbrio apresente as não-linearidades
+citadas. Um esquemático das configurações (a) inicial e (b) deformada
+desta treliça é mostrada na \autoref{fig:trelica_vonMises}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Treliça de von Mises}
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[
+            trim=30mm 100mm 30mm 2mm,
+		      clip,
+		      width=\linewidth]
+        {figuras/1_introdução/trelica_vonMises.pdf}
+        \caption{Configuração inicial.}
+        \label{subfig:vonMises-init}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[
+            trim=30mm 4mm 30mm 120mm,
+		      clip,
+		      width=\linewidth]
+        {figuras/1_introdução/trelica_vonMises.pdf}
+        \caption{Configuração deformada.}
+        \label{subfig:vonMises-deform}
+    \end{subfigure}
+    \caption*{Fonte: Autores}
+    \label{fig:trelica_vonMises}
+\end{figure}
+
+A treliça de von Mises é adotada neste trabalho como modelo de referência para o estudo de sistemas estruturais reticulados sujeitos a instabilidade, por ser um sistema de poucos graus de liberdade, de fácil implementação numérica. O estudo é voltado para a aplicação em estruturas de satélites, especificamente a velas solares.
+
+Este trabalho está organizado da seguinte forma: a Seção\ref{sec:fundamentação} apresenta os principais métodos numéricos empregados na obtenção da trajetória de equilíbrio de sistemas com pontos críticos, além dos aspectos de modelagem e das perturbações que atuam sobre velas solares. A Seção \ref{sec:discussões} discute as particularidades de operação de estruturas treliçadas em órbitas próximas ao Sol, tomando como referência a missão  BepiColombo, e integra essa discussão à escolha do método de análise mais adequado. A Seção \ref{sec:conclusao} sintetiza as considerações
+finais do trabalho.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%         1.1 Motivação            %%%
@@ -18,3 +75,33 @@
 \subsection{Motivação}
 \label{subsec:motivação}
 
+Velas solares são sistemas de propulsão espacial que dispensam
+propelente ao converter a pressão de radiação solar (PRS) em força
+de empuxo, a partir da reflexão de fótons em uma membrana de grande
+área \cite{silva2020}. Para que essa membrana permaneça esticada e
+mantenha sua orientação em relação ao Sol, ela é sustentada por
+mastros e treliças esbeltas, dobráveis, projetadas para minimizar a
+massa da estrutura de suporte. Arquiteturas reticuladas compostas
+por elementos biestáveis, capazes de assumir múltiplas configurações
+de equilíbrio estável, já foram propostas justamente para viabilizar
+o dobramento e a implantação de estruturas espaciais desse tipo
+\cite{schioler_pellegrino2007}, o que evidencia que o comportamento
+não-linear e a proximidade de pontos críticos não são exceções, mas
+características intrínsecas do projeto dessas estruturas.
+
+Essa mesma esbeltez que reduz a massa da estrutura de suporte também
+a torna suscetível a instabilidades geométricas. O carregamento
+transmitido pela membrana à treliça de sustentação não é constante:
+varia com a orientação da vela em relação ao Sol, com manobras de
+controle de atitude e, sobretudo, com flutuações do próprio ambiente
+espacial, como rajadas do vento solar e variações abruptas da
+pressão de radiação. Quando esse carregamento variável aproxima a
+estrutura de um ponto-limite de sua trajetória de equilíbrio, pode
+ocorrer o \textit{snap-through} dinâmico: a treliça salta de forma
+súbita para uma configuração distante da original, com velocidades e
+acelerações elevadas. Esse evento compromete a planicidade da
+membrana, a precisão do apontamento da vela e, em casos extremos,
+pode gerar esforços dinâmicos suficientes para danificar a própria
+estrutura reticulada.
+
+Compreender e prever esse fenômeno exige, portanto, ferramentas de análise NLG capazes de acompanhar a trajetória de equilíbrio da estrutura mesmo além dos pontos-limite, algo que métodos incrementais simples não conseguem realizar de forma robusta. É essa necessidade que motiva a revisão dos métodos de solução apresentada na Seção \ref{sec:fundamentação} e a discussão, na Seção \ref{sec:discussões}, sobre como o ambiente de operação de uma vela solar em órbita próxima ao Sol, comparando-se os métodos de análise em uma aplicação prática.

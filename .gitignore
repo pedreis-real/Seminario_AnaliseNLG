@@ -11,6 +11,8 @@
 *.toc
 *.lof
 *.lot
+*.bbl
+*.blg
 
 # Backup files
 *.bak
