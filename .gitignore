@@ -21,5 +21,8 @@
 # Bulk data for copy and paste
 copypasta.txt
 
-# Tabela de referência
-Referência/temas_nlg_tabela.html
+# Python internal routs
+__pycache__/
+
+# Old versions
+.old/
